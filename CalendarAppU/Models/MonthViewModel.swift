@@ -38,7 +38,7 @@ class MonthViewModel: MonthViewing {
         if let service = service {
             self.service = service
         } else {
-            self.service = HolidayService()
+            self.service = HolidayServiceHandler.shared
         }
     }
     
@@ -89,8 +89,36 @@ class MonthViewModel: MonthViewing {
 }
 
 private extension MonthViewModel {
-    
+
     func serviceCalls() {
+        print(#function)
+        serviceCallsNonCancelling()
+        
+        // serviceCallsCancelling()
+    }
+
+    func serviceCallsNonCancelling() {
+        guard let service = service else { return }
+        
+        (1...numberOfDaysInMonth).forEach {
+            service.fetchHolidays(year: year, month: current, day: $0) { [weak self] in
+                guard let self = self else { return }
+                switch $0 {
+                case .success(let holidays):
+                    if !holidays.isEmpty {
+                        self.holidays = self.holidays + holidays
+                        self.onHolidays(self.holidays)
+                    }
+                    print(holidays)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    
+    func serviceCallsCancelling() {
         print(#function)
 
         (1...numberOfDaysInMonth).forEach {
@@ -100,9 +128,7 @@ private extension MonthViewModel {
                 guard let self = self else { return }
                 switch $0 {
                 case .success(let holidays):
-                    if holidays.isEmpty {
-                        
-                    } else {
+                    if !holidays.isEmpty {
                         self.holidays = self.holidays + holidays
                         self.onHolidays(self.holidays)
                     }

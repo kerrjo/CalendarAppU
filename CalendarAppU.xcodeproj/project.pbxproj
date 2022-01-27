@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550BF56627A3267D00249506 /* MonthCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550BF56527A3267C00249506 /* MonthCalculatorTests.swift */; };
 		5595EC3A27A20D1C0007D8B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5595EC3927A20D1C0007D8B6 /* AppDelegate.swift */; };
 		5595EC3C27A20D1C0007D8B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5595EC3B27A20D1C0007D8B6 /* SceneDelegate.swift */; };
 		5595EC3E27A20D1C0007D8B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5595EC3D27A20D1C0007D8B6 /* ViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		550BF56527A3267C00249506 /* MonthCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalculatorTests.swift; sourceTree = "<group>"; };
 		5595EC3627A20D1C0007D8B6 /* CalendarAppU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarAppU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5595EC3927A20D1C0007D8B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5595EC3B27A20D1C0007D8B6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		5595EC4F27A20D1F0007D8B6 /* CalendarAppUTests */ = {
 			isa = PBXGroup;
 			children = (
+				550BF56527A3267C00249506 /* MonthCalculatorTests.swift */,
 				5595EC5027A20D1F0007D8B6 /* CalendarAppUTests.swift */,
 				5595EC6F27A2327A0007D8B6 /* MonthViewModelTests.swift */,
 			);
@@ -335,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				550BF56627A3267D00249506 /* MonthCalculatorTests.swift in Sources */,
 				5595EC5127A20D1F0007D8B6 /* CalendarAppUTests.swift in Sources */,
 				5595EC7027A2327A0007D8B6 /* MonthViewModelTests.swift in Sources */,
 			);
