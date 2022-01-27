@@ -51,7 +51,31 @@ class MonthViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: 0.2)
     }
 
-    func testHoliday() throws {
+    func testOnHolidays() throws {
+        let mockCalc = MockMonthCalculator()
+
+        let expectation = XCTestExpectation()
+        
+        let expectedHoliday = HolidayElement(name: "Test", nameLocal: "", language: "", welcomeDescription: "", country: "", location: "", type: "", date: "", dateYear: "", dateMonth: "", dateDay: "", weekDay: "")
+        let mockService = MockHolidayService {
+            $0(.success([expectedHoliday]))
+        }
+
+        let sut = MonthViewModel(with: mockCalc, service: mockService) as MonthViewing
+        sut.onHolidays = { holidays in
+            expectation.fulfill()
+            XCTAssertEqual("Test", holidays[0].name)
+        }
+        sut.startMonth()
+        wait(for: [expectation], timeout: 0.2)
+    }
+}
+
+/// Navigation
+
+extension MonthViewModelTests {
+    
+    func testStartMonth() throws {
         let mockCalc = MockMonthCalculator()
 
         let expectedFetches = 2
@@ -67,14 +91,8 @@ class MonthViewModelTests: XCTestCase {
         
         let sut = MonthViewModel(with: mockCalc, service: mockService) as MonthViewing
         sut.startMonth()
-        
         wait(for: [expectation], timeout: 0.2)
     }
-}
-
-/// Navigation
-
-extension MonthViewModelTests {
     
     func testNextMonth() throws {
         let expectation = XCTestExpectation()
@@ -101,10 +119,7 @@ extension MonthViewModelTests {
         sut.previous()
         wait(for: [expectation], timeout: 0.2)
     }
-    
 }
-
-
 
 // MOCKS
 

@@ -18,7 +18,6 @@ enum FetchError: Error {
 }
 
 protocol HolidayWebService {
-    //var dataTask: URLSessionDataTask? { get }
     func cancel()
     func fetchHolidays(year: Int, month: Int, day: Int, completion: @escaping (Result<Holidays, FetchError>) -> ())
 }
@@ -49,7 +48,7 @@ public class HolidayService: HolidayWebService {
         guard let url = components.url else { return completion(.failure(.malformedURL)) }
         
         if day < 1 {
-
+            // proceed
         } else {
             completion(.failure(.notImplemented))
             return
@@ -97,10 +96,9 @@ public class HolidayServiceHandler: HolidayWebService {
     func fetchHolidays(year: Int, month: Int, day: Int, completion: @escaping (Result<Holidays, FetchError>) -> ()) {
         
         guard var components = URLComponents(string: "https://holidays.abstractapi.com/v1/") else { return }
-        
-        
+
         components.queryItems = [
-            URLQueryItem(name: "api_key", value: "__f27cda4192bc4425__b8da32db7d3f925d"),
+            URLQueryItem(name: "api_key", value: "___f27cda4192bc4425b8da32db7d3f925d"),
             URLQueryItem(name: "country", value: "US"),
             URLQueryItem(name: "year", value: "\(year)"),
             URLQueryItem(name: "month", value: "\(month)"),
@@ -111,7 +109,7 @@ public class HolidayServiceHandler: HolidayWebService {
         
         guard let url = components.url else { return completion(.failure(.malformedURL)) }
         
-        if day == 1 { } else {
+        if day < 1 { } else {
             return completion(.failure(.notImplemented)) }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
