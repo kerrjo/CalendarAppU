@@ -11,11 +11,9 @@ import XCTest
 class MonthViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func testValues() throws {
@@ -28,7 +26,6 @@ class MonthViewModelTests: XCTestCase {
     
     func testNumberOfDaysInMonth() throws {
         let sut = MonthCalculation(m: 9, d: 26, y: 2022)
-        
         let value = sut.numberOfDaysInMonth
         XCTAssertEqual(30, value)
     }
@@ -47,7 +44,6 @@ class MonthViewModelTests: XCTestCase {
 
     func testPreviousMonth() throws {
         let sut = MonthCalculation(m: 4, d: 26, y: 2022)
-        //sut.incrementMonth(by: -1)
         sut.previousMonth()
         let values = sut.mdyValues
         XCTAssertEqual(3, values.0)
@@ -55,7 +51,6 @@ class MonthViewModelTests: XCTestCase {
     
     func testNextMonth() throws {
         let sut = MonthCalculation(m: 4, d: 26, y: 2022)
-        //sut.incrementMonth(by: 1)
         sut.nextMonth()
         let values = sut.mdyValues
         XCTAssertEqual(5, values.0)
@@ -63,7 +58,6 @@ class MonthViewModelTests: XCTestCase {
 
     func testNextMonthCrossoverYear() throws {
         let sut = MonthCalculation(m: 12, d: 26, y: 2022)
-        //sut.incrementMonth(by: 1)
         sut.nextMonth()
         let values = sut.mdyValues
         XCTAssertEqual(1, values.0)
@@ -72,11 +66,9 @@ class MonthViewModelTests: XCTestCase {
 
     func testPreviousMonthCrossoverYear() throws {
         let sut = MonthCalculation(m: 1, d: 26, y: 2022)
-        //sut.incrementMonth(by: -1)
         sut.previousMonth()
         let values = sut.mdyValues
         XCTAssertEqual(12, values.0)
         XCTAssertEqual(2021, values.2)
     }
-
 }

@@ -94,6 +94,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		550BF56127A3199C00249506 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5595EC4427A20D1F0007D8B6 /* LaunchScreen.storyboard */,
+				5595EC3927A20D1C0007D8B6 /* AppDelegate.swift */,
+				5595EC3B27A20D1C0007D8B6 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		550BF56227A319B500249506 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5595EC3F27A20D1C0007D8B6 /* Main.storyboard */,
+				5595EC3D27A20D1C0007D8B6 /* ViewController.swift */,
+				5595EC6927A212410007D8B6 /* CalendarMain.storyboard */,
+				5595EC7A27A2EACC0007D8B6 /* DayView.swift */,
+				5595EC6B27A214490007D8B6 /* MonthViewController.swift */,
+				5595EC6D27A21AE00007D8B6 /* MainCalendarViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		550BF56327A319D600249506 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5595EC7127A237680007D8B6 /* MonthCalculator.swift */,
+				5595EC7327A2416E0007D8B6 /* MonthViewModel.swift */,
+				5595EC7C27A2EB2F0007D8B6 /* Holiday.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		550BF56427A319EE00249506 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5595EC7727A256220007D8B6 /* HolidayWebService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		5595EC2D27A20D1C0007D8B6 = {
 			isa = PBXGroup;
 			children = (
@@ -117,21 +158,12 @@
 		5595EC3827A20D1C0007D8B6 /* CalendarAppU */ = {
 			isa = PBXGroup;
 			children = (
-				5595EC3927A20D1C0007D8B6 /* AppDelegate.swift */,
-				5595EC3B27A20D1C0007D8B6 /* SceneDelegate.swift */,
-				5595EC3D27A20D1C0007D8B6 /* ViewController.swift */,
-				5595EC3F27A20D1C0007D8B6 /* Main.storyboard */,
+				550BF56127A3199C00249506 /* App */,
 				5595EC4227A20D1F0007D8B6 /* Assets.xcassets */,
-				5595EC4427A20D1F0007D8B6 /* LaunchScreen.storyboard */,
 				5595EC4727A20D1F0007D8B6 /* Info.plist */,
-				5595EC6927A212410007D8B6 /* CalendarMain.storyboard */,
-				5595EC7A27A2EACC0007D8B6 /* DayView.swift */,
-				5595EC6B27A214490007D8B6 /* MonthViewController.swift */,
-				5595EC6D27A21AE00007D8B6 /* MainCalendarViewController.swift */,
-				5595EC7127A237680007D8B6 /* MonthCalculator.swift */,
-				5595EC7327A2416E0007D8B6 /* MonthViewModel.swift */,
-				5595EC7727A256220007D8B6 /* HolidayWebService.swift */,
-				5595EC7C27A2EB2F0007D8B6 /* Holiday.swift */,
+				550BF56227A319B500249506 /* Views */,
+				550BF56327A319D600249506 /* Models */,
+				550BF56427A319EE00249506 /* Service */,
 			);
 			path = CalendarAppU;
 			sourceTree = "<group>";
