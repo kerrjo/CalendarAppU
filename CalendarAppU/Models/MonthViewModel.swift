@@ -88,6 +88,8 @@ class MonthViewModel: MonthViewing {
     private var holidays: [HolidayElement] = []
 }
 
+// service calls
+
 private extension MonthViewModel {
 
     func serviceCalls() {
