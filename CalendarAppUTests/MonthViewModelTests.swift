@@ -8,7 +8,6 @@
 import XCTest
 @testable import CalendarAppU
 
-
 class MonthViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
