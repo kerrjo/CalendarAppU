@@ -47,12 +47,7 @@ public class HolidayService: HolidayWebService {
         
         guard let url = components.url else { return completion(.failure(.malformedURL)) }
         
-        if day < 1 {
-            // proceed
-        } else {
-            completion(.failure(.notImplemented))
-            return
-        }
+        if day < 1 { } else { return completion(.failure(.notImplemented)) }
         
         dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error { return completion(.failure(.error(error))) }
@@ -109,8 +104,7 @@ public class HolidayServiceHandler: HolidayWebService {
         
         guard let url = components.url else { return completion(.failure(.malformedURL)) }
         
-        if day < 1 { } else {
-            return completion(.failure(.notImplemented)) }
+        if day < 1 { } else { return completion(.failure(.notImplemented)) }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error { return completion(.failure(.error(error))) }
