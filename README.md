@@ -88,4 +88,10 @@ another was altering the key with underscores maybe
             URLQueryItem(name: "year", value: "\(year)"),
 ```
 
+wraps well around years
+
 ![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-27%20at%206.57.56%20PM.png)
+
+good testcoverage
+
+![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-27%20at%208.11.00%20PM.png)
