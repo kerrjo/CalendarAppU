@@ -10,7 +10,7 @@ Free version only allows 1,000 requests 1 request / second
 
 The Free version requires Y M and D.   Y and M would have been cool, but oh well.
 
-![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-27%20at%208.21.33%20PM.png)
+![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-28%20at%203.20.27%20PM.png)
 
 This implementation considered this limited bandwidth. For testing purposes code typically looks like this 
 ```
@@ -25,7 +25,7 @@ Limited testing would only check for day one for each month.
  if day == 1 { } else {
             return completion(.failure(.notImplemented)) }
 ```
-## The service calls. 
+## The service calls
 There are two kinds of web service Objects `HolidayWebService` and `HolidayServiceHandler`
 
 Both conform to `HolidayWebService` protocol
@@ -81,9 +81,6 @@ another was altering the key with underscores maybe
             URLQueryItem(name: "api_key", value: "___f27cdac22cabd3f925d"),
 ```
 
-wraps well around years
-
-![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-27%20at%206.57.45%20PM.png)
 
 good testcoverage
 
