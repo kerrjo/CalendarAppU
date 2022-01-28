@@ -1,6 +1,8 @@
 # CalendarAppU
 Calendar app UIkit, InspiringApps coding challenge
 
+Built with *Xcode Version 13.2.1 (13C100)*
+
 The calendar does not stop at 3 years +/- current - did not implement to check.
 
 The api chosen was  holidays.abstractapi.com/v1/
