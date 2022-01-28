@@ -8,11 +8,12 @@
 import Foundation
 
 protocol MonthViewing: AnyObject {
-    var current: Int { get }
-    var year: Int { get }
     func next()
     func previous()
     func startMonth()
+
+    var current: Int { get }
+    var year: Int { get }
     var startDay: Int { get } // day of week start month 0
     var onNewMonth: () -> () { get set }
     var numberOfDaysInMonth: Int { get }
@@ -29,17 +30,8 @@ class MonthViewModel: MonthViewing {
     private var monthCalculator: MonthCalculating
     
     init(with calc: MonthCalculating? = nil, service: HolidayWebService? = nil) {
-        if let calc = calc {
-            monthCalculator = calc
-        } else {
-            monthCalculator = MonthCalculation()
-        }
-        
-        if let service = service {
-            self.service = service
-        } else {
-            self.service = HolidayServiceHandler.shared
-        }
+        self.monthCalculator = calc ?? MonthCalculation()
+        self.service = service ?? HolidayServiceHandler.shared
     }
     
     var numberOfDaysInMonth: Int {
@@ -100,6 +92,8 @@ private extension MonthViewModel {
     }
 
     func serviceCallsNonCancelling() {
+        print(#function)
+
         guard let service = service else { return }
         
         (1...numberOfDaysInMonth).forEach {
@@ -150,5 +144,4 @@ private extension MonthViewModel {
         cancellableServiceCalls = []
         holidays = []
     }
-    
 }

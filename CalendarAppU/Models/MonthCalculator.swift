@@ -34,11 +34,10 @@ class MonthCalculation: MonthCalculating {
     
     // sun - sat  1 thru 7
     var startDayOfWeek: Int {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .month, .year], from: date)
+        let components = Calendar.current.dateComponents([.day, .month, .year], from: date)
         guard let month = components.month, let year = components.year else { return -1 }
-        guard let date = calendar.date(from: DateComponents(year: year, month: month, day: 1))  else { return -1 }
-        return calendar.component(.weekday, from: date)
+        guard let date = Calendar.current.date(from: DateComponents(year: year, month: month, day: 1))  else { return -1 }
+        return Calendar.current.component(.weekday, from: date)
     }
     
     convenience init(m: Int, d: Int, y: Int) {
@@ -51,11 +50,7 @@ class MonthCalculation: MonthCalculating {
     }
 
     init(with date: Date? = nil) {
-        if let date = date {
-            self.date = date
-        } else {
-            self.date = Date()
-        }
+        self.date = date ?? Date()
     }
 
     /// month day year
@@ -66,17 +61,20 @@ class MonthCalculation: MonthCalculating {
     
     /// month day year
     private func dateValues() -> (Int?, Int?, Int?) {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .month, .year], from: date)
+        let components = Calendar.current.dateComponents([.day, .month, .year], from: date)
         return (components.month, components.day, components.year)
     }
     
     /// adjust by month - to previous + next
     private func incrementMonth(by incr: Int) {
-        var dateComponent = DateComponents()
-        dateComponent.month = incr
-        guard let newDate = Calendar.current.date(byAdding: dateComponent, to: date) else { return }
+        guard let newDate = Calendar.current.date(byAdding: DateComponents(month: incr), to: date) else { return }
         date = newDate
     }
 }
+
+//        var dateComponent = DateComponents()
+//        dateComponent.month = incr
+//        guard let newDate = Calendar.current.date(byAdding: dateComponent, to: date) else { return }
+        
+        
 

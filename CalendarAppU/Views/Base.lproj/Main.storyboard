@@ -14,7 +14,7 @@
                 <viewControllerPlaceholder storyboardName="CalendarMain" id="Ye0-23-eTH" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fc7-Du-dtM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="583" y="20"/>
+            <point key="canvasLocation" x="610" y="80"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
