@@ -83,3 +83,14 @@ another was altering the key with underscores maybe
 good testcoverage
 
 ![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-27%20at%208.11.00%20PM.png)
+
+# Paging
+
+Checkout the paging branch for navigation https://github.com/kerrjo/CalendarAppU/tree/Paging
+
+
+https://user-images.githubusercontent.com/12850537/151677177-bcde71d3-f5a7-4c75-851c-e69a47769892.mp4
+
+
+
+
