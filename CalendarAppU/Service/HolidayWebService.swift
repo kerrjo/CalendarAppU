@@ -28,6 +28,7 @@ public class HolidayService: HolidayWebService {
 
     func cancel() {
         guard let dataTask = dataTask else { return }
+        print(#function, "cancelled")
         dataTask.cancel()
     }
     
@@ -43,12 +44,13 @@ public class HolidayService: HolidayWebService {
             URLQueryItem(name: "day", value: "\(day)"),
             ]
         
-        print(components.url as Any)
+        //print(components.url as Any)
         
         guard let url = components.url else { return completion(.failure(.malformedURL)) }
         
-        if day < 4 || day > 22 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
-        //if day < 1 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
+        //if day < 4 || day > 22 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
+        if day < 1 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
+        //if day < 2 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
 
         dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error { return completion(.failure(.error(error))) }
@@ -75,7 +77,6 @@ public class HolidayService: HolidayWebService {
         }
         
         dataTask?.resume()
-        
     }
 }
 
@@ -101,12 +102,12 @@ public class HolidayServiceHandler: HolidayWebService {
             URLQueryItem(name: "day", value: "\(day)"),
             ]
         
-        print(components.url as Any)
+        //print(components.url as Any)
         
         guard let url = components.url else { return completion(.failure(.malformedURL)) }
         
-        if day < 4 || day > 22 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
-        //if day < 1 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
+        //if day < 4 || day > 22 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
+        if day < 1 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
         //if day < 2 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
 
         URLSession.shared.dataTask(with: url) { data, response, error in

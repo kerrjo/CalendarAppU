@@ -7,19 +7,23 @@
 
 import Foundation
 
-protocol MonthViewing: AnyObject {
+
+protocol MonthNavigating {
     func next()
     func previous()
     func startMonth()
+}
 
+protocol MonthViewing: AnyObject, MonthNavigating {
     var current: Int { get }
     var year: Int { get }
     var startDay: Int { get } // day of week start month 0
-    var onNewMonth: () -> () { get set }
     var numberOfDaysInMonth: Int { get }
     var onHolidays: ([HolidayElement])  -> () { get set }
     var monthName: String { get }
     var yearMonthTitle: String { get }
+    
+    var onNewMonth: () -> () { get set }
 }
 
 class MonthViewModel: MonthViewing {
@@ -28,16 +32,20 @@ class MonthViewModel: MonthViewing {
     
     private var service: HolidayWebService?
     private var monthCalculator: MonthCalculating
+    private var cancelling: Bool = false
+    private var isPaging: Bool = false
     
-    init(with calc: MonthCalculating? = nil, service: HolidayWebService? = nil) {
+    init(with calc: MonthCalculating? = nil, service: HolidayWebService? = nil, cancelling: Bool = false, isPaging: Bool = false) {
         self.monthCalculator = calc ?? MonthCalculation()
         self.service = service ?? HolidayServiceHandler.shared
+        self.cancelling = cancelling
+        self.isPaging = isPaging
     }
     
     var numberOfDaysInMonth: Int {
         monthCalculator.numberOfDaysInMonth
     }
-
+    
     var monthName: String {
         dateFormatter.dateFormat = "LLLL"
         return dateFormatter.string(from: monthCalculator.date)
@@ -55,25 +63,30 @@ class MonthViewModel: MonthViewing {
     var current: Int { monthCalculator.mdyValues.0 }
     
     var year: Int { monthCalculator.mdyValues.2 }
-
+    
     func startMonth() {
         newMonthCleanup()
         onNewMonth()
         serviceCalls()
     }
-
+    
     func next() {
         monthCalculator.nextMonth()
-        newMonthCleanup()
-        onNewMonth()
-        serviceCalls()
+        navigation()
+        
     }
     
     func previous() {
         monthCalculator.previousMonth()
-        newMonthCleanup()
-        onNewMonth()
-        serviceCalls()
+        navigation()
+    }
+    
+    private func navigation() {
+        if !isPaging {
+            newMonthCleanup()
+            onNewMonth()
+            serviceCalls()
+        }
     }
     
     private var cancellableServiceCalls: [HolidayWebService] = []
@@ -83,17 +96,19 @@ class MonthViewModel: MonthViewing {
 // service calls
 
 private extension MonthViewModel {
-
+    
     func serviceCalls() {
         print(#function)
-        serviceCallsNonCancelling()
-        
-        // serviceCallsCancelling()
+        if cancelling {
+            serviceCallsCancelling()
+        } else {
+            serviceCallsNonCancelling()
+        }
     }
-
+    
     func serviceCallsNonCancelling() {
         print(#function)
-
+        
         guard let service = service else { return }
         
         (1...numberOfDaysInMonth).forEach {
@@ -106,8 +121,8 @@ private extension MonthViewModel {
                         self.onHolidays(self.holidays)
                     }
                     print(holidays)
-                case .failure(let error):
-                    print(error)
+                case .failure(let error): break
+                    //print(error)
                 }
             }
         }
@@ -116,7 +131,7 @@ private extension MonthViewModel {
     
     func serviceCallsCancelling() {
         print(#function)
-
+        
         (1...numberOfDaysInMonth).forEach {
             let service = HolidayService()
             
@@ -129,8 +144,8 @@ private extension MonthViewModel {
                         self.onHolidays(self.holidays)
                     }
                     print(holidays)
-                case .failure(let error):
-                    print(error)
+                case .failure(let error): break
+                    //print(error)
                 }
             }
             cancellableServiceCalls.append(service)

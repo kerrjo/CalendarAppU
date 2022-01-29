@@ -9,14 +9,30 @@ import UIKit
 
 class MonthViewController: UIViewController {
 
-    var viewModel = MonthViewModel()
+    var viewModel: MonthViewing! = MonthViewModel()
+    
+    var pagingEnabled = false
+    
+    var installedViewModel: MonthViewing? {
+        didSet {
+            viewModel = installedViewModel
+            addListeners()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if pagingEnabled {
+            // do nothing
+        } else {
+            addListeners()
+        }
+    }
+    
+    private func addListeners() {
         viewModel.onNewMonth = { [weak self] in
             self?.newMonth()
         }
-        
         viewModel.onHolidays = { [weak self] holidays in
             self?.holidaysUpdated(holidays)
         }
