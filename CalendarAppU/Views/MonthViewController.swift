@@ -24,12 +24,13 @@ class MonthViewController: UIViewController {
 
     @IBOutlet var monthStackView: UIStackView!
     
-    func newMonth() {
+    private func newMonth() {
+        removePopupViews()
         clearDayViews()
         addDayViews()
     }
     
-    func holidaysUpdated(_ holidays: [HolidayElement]) {
+    private func holidaysUpdated(_ holidays: [HolidayElement]) {
         print(#function)
         for holiday in holidays {
             DispatchQueue.main.async { [weak self] in
@@ -49,8 +50,7 @@ class MonthViewController: UIViewController {
         }
     }
     
-    func holidayDayView(day: Int, name: String) {
-        print(#function, day, name)
+    private func holidayDayView(day: Int, name: String) {
         for week in monthStackView.arrangedSubviews {
             if let week = week as? UIStackView {
                 
@@ -66,10 +66,80 @@ class MonthViewController: UIViewController {
     }
 }
 
+extension MonthViewController: DaySelection {
+    
+    func onDaySelected(_ day: Int, text: String = "") {
+        removePopupViews()
+        addPopupView(for: day, text: text)
+        updateDayViews()
+    }
+}
+
+/// Manage popup
+
+extension MonthViewController {
+    
+    private func removePopupViews() {
+        for rowView in monthStackView.arrangedSubviews {
+            if let popUp = rowView as? DayViewPopup {
+                monthStackView.removeArrangedSubview(popUp)
+                popUp.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func addPopupView(for day: Int, text: String = "") {
+        if let week = findDayViewWeek(day: day) {
+            let popView = DayViewPopup(day: day)
+            popView.holidayText = text
+            monthStackView.insertArrangedSubview(popView, at: week + 1)
+        }
+    }
+
+    private func findDayViewWeek(day: Int) -> Int? {
+        for (index, week) in monthStackView.arrangedSubviews.enumerated() {
+            if let week = week as? UIStackView {
+                for dayOfWeekView in week.arrangedSubviews {
+                    if let dayView = dayOfWeekView as? DayView {
+                        if dayView.day == day {
+                            return index
+                        }
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
+    private func updateDayViews() {
+        for week in monthStackView.arrangedSubviews {
+            if let week = week as? UIStackView {
+                for dayOfWeekView in week.arrangedSubviews {
+                    if let dayView = dayOfWeekView as? DayView {
+                        dayView.layoutIfNeeded()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func hasPopupView() -> Bool {
+        for rowView in monthStackView.arrangedSubviews {
+            if let _ = rowView as? DayViewPopup {
+                return true
+            }
+        }
+        return false
+    }
+}
+
 
 private extension MonthViewController {
+    
     func newDayView(for day: Int) -> UIView {
-        return DayView(day: day)
+        let dayView = DayView(day: day)
+        dayView.daySelectionHandler = self
+        return dayView
     }
     
     func addDayViews() {
