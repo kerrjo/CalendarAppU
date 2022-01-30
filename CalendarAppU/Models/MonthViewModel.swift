@@ -120,9 +120,8 @@ private extension MonthViewModel {
                         self.holidays = self.holidays + holidays
                         self.onHolidays(self.holidays)
                     }
-                    print(holidays)
-                case .failure(let error): break
-                    //print(error)
+                case .failure(let error):
+                    print(error)
                 }
             }
         }
@@ -143,9 +142,8 @@ private extension MonthViewModel {
                         self.holidays = self.holidays + holidays
                         self.onHolidays(self.holidays)
                     }
-                    print(holidays)
-                case .failure(let error): break
-                    //print(error)
+                case .failure(let error):
+                    print(error)
                 }
             }
             cancellableServiceCalls.append(service)
