@@ -55,9 +55,7 @@ class MainCalendarViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if isPaging {
-            // nothing to do
-        } else {
+        if isPaging == false {
             monthView.viewModel.startMonth()
         }
     }
@@ -68,16 +66,16 @@ class MainCalendarViewController: UIViewController {
     }
 }
 
+/// Action buttons not  needed for paging, but for button navigation
+///
 extension MainCalendarViewController {
 
     @IBAction func previousAction(_ sender: Any) {
-        print(#function)
         monthView.viewModel.previous()
         monthLabel.text = monthView.viewModel.yearMonthTitle
     }
 
     @IBAction func nextAction(_ sender: Any) {
-        print(#function)
         monthView.viewModel.next()
         monthLabel.text = monthView.viewModel.yearMonthTitle
     }
