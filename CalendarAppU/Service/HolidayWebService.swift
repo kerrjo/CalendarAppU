@@ -22,6 +22,10 @@ protocol HolidayWebService {
     func fetchHolidays(year: Int, month: Int, day: Int, completion: @escaping (Result<Holidays, FetchError>) -> ())
 }
 
+/**
+ A HolidayWebService Class that submits a url request and srtores the task in dataTask to cancel later if needed
+ 
+ */
 public class HolidayService: HolidayWebService {
 
     private(set) var dataTask: URLSessionDataTask?
@@ -80,8 +84,10 @@ public class HolidayService: HolidayWebService {
     }
 }
 
-
-/// classic shared
+/**
+ A HolidayWebService Class that submits a url request the task is NOT stored and cannot be cancelled later
+ a singleton
+ */
 public class HolidayServiceHandler: HolidayWebService {
     
     static let shared = HolidayServiceHandler()

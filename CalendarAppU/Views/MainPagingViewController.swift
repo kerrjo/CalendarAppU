@@ -7,6 +7,10 @@
 
 import UIKit
 
+/**
+ Primary view for collanedat month view
+ container view for page view controller
+ */
 class MainPagingViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -34,6 +38,7 @@ extension MainPagingViewController: UIPageViewControllerDataSource {
         guard let source = viewController as? MainCalendarViewController else { return nil }
         let monthCalculator = MonthCalculation(m: source.viewModel.current, d: 1, y: source.viewModel.year)
         monthCalculator.previousMonth()
+        
         let viewModel = MonthViewModel(with: monthCalculator, cancelling: true)
         print(viewModel.current, viewModel.monthName, viewModel.year)
         if let destination = storyboard?.instantiateViewController(withIdentifier: "MonthView") as? MainCalendarViewController {
@@ -49,8 +54,8 @@ extension MainPagingViewController: UIPageViewControllerDataSource {
         guard let source = viewController as? MainCalendarViewController else { return nil }
         let monthCalculator = MonthCalculation(m: source.viewModel.current, d: 1, y: source.viewModel.year)
         monthCalculator.nextMonth()
-        let viewModel = MonthViewModel(with: monthCalculator, cancelling: true)
         
+        let viewModel = MonthViewModel(with: monthCalculator, cancelling: true)
         if let destination = storyboard?.instantiateViewController(withIdentifier: "MonthView") as? MainCalendarViewController {
             let _ = destination.view
             destination.installedViewModel = viewModel
