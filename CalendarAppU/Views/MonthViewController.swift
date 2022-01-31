@@ -7,14 +7,23 @@
 
 import UIKit
 
+/**
+ A view controller presenting days in rows and columns
+ A nonpaging function will update the same grid when navigating
+ `viewModel` is init at init of this contoller
+ 
+ A  paging impl will create a new instance of one of these
+ `viewModel` is set using  installedViewModel
+
+ */
 class MonthViewController: UIViewController {
 
-    // TODO: this is a little awkward implicitly unwrapped and being set by
+    // TODO: this is a little awkward viewModel implicitly unwrapped and being set by
     // installedViewModel which is optional
+    
     var viewModel: MonthViewing! = MonthViewModel()
     
     var pagingEnabled = false
-    
     var installedViewModel: MonthViewing? {
         didSet {
             viewModel = installedViewModel
@@ -24,36 +33,39 @@ class MonthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if pagingEnabled == false {
+        if !pagingEnabled {
             addListeners()
         }
     }
     
+    @IBOutlet var monthStackView: UIStackView!
+
     private func addListeners() {
         viewModel.onNewMonth = { [weak self] in
             self?.newMonth()
         }
+        
         viewModel.onHolidays = { [weak self] holidays in
             self?.holidaysUpdated(holidays)
         }
     }
+}
 
-    @IBOutlet var monthStackView: UIStackView!
-    
+extension MonthViewController: DaySelection {
+    func onDaySelected(_ day: Int, text: String = "") {
+        removePopupViews()
+        addPopupView(for: day, text: text)
+        updateDayViews()
+    }
+}
+
+extension MonthViewController  {
     private func newMonth() {
         removePopupViews()
         clearDayViews()
         addDayViews()
     }
-    
-    private func holidaysUpdated(_ holidays: [HolidayElement]) {
-        for holiday in holidays {
-            DispatchQueue.main.async { [weak self] in
-                self?.holidayDayView(day: Int(holiday.dateDay) ?? 0, name: holiday.name)
-            }
-        }
-    }
-    
+
     private func clearDayViews() {
         for week in monthStackView.arrangedSubviews {
             guard let week = week as? UIStackView else { continue }
@@ -64,8 +76,16 @@ class MonthViewController: UIViewController {
             }
         }
     }
+
+    private func holidaysUpdated(_ holidays: [HolidayElement]) {
+        for holiday in holidays {
+            DispatchQueue.main.async { [weak self] in
+                self?.updateHolidayDayView(day: Int(holiday.dateDay) ?? 0, name: holiday.name)
+            }
+        }
+    }
     
-    private func holidayDayView(day: Int, name: String) {
+    private func updateHolidayDayView(day: Int, name: String) {
         for week in monthStackView.arrangedSubviews {
             guard let week = week as? UIStackView else { continue }
             
@@ -79,13 +99,6 @@ class MonthViewController: UIViewController {
     }
 }
 
-extension MonthViewController: DaySelection {
-    func onDaySelected(_ day: Int, text: String = "") {
-        removePopupViews()
-        addPopupView(for: day, text: text)
-        updateDayViews()
-    }
-}
 
 /// Manage popup
 
@@ -103,9 +116,7 @@ extension MonthViewController {
         guard let weekIndex = findDayViewWeek(day: day) else { return }
         
         let popView = DayViewPopup(day: day)
-        
         popView.holidayText = text
-        
         monthStackView.insertArrangedSubview(popView, at: weekIndex + 1)
     }
 

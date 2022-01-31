@@ -67,6 +67,7 @@ class HolidayFetcher {
     func fetch(url: URL, completion: @escaping (Result<Holidays, FetchError>) -> ()) {
 
         /// Upon response from `dataTaskPublisher`,  and  initial `tryMap` ...
+    
         // analyze the response to ensure we have a response that we want to try
         // I transform output -> Result so we can work around the tryCatch later if we encountered a non-retryable error
         

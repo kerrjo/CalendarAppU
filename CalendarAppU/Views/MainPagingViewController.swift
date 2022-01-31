@@ -27,12 +27,12 @@ class MainPagingViewController: UIViewController {
     
     private func beginPageViewController() {
         guard let destination = storyboard?.instantiateViewController(withIdentifier: "MonthView") as? MainCalendarViewController else { return }
-        
+        destination.isPaging = true
+
         let viewModel = MonthViewModel(cancelling: true)
         
         // ensure the view loads before installing
         let _ = destination.view
-        
         destination.installedViewModel = viewModel
         monthPageView.setViewControllers([destination], direction: .forward, animated: false, completion: nil)
     }
@@ -47,7 +47,8 @@ extension MainPagingViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let source = viewController as? MainCalendarViewController else { return nil }
         guard let destination = storyboard?.instantiateViewController(withIdentifier: "MonthView") as? MainCalendarViewController else { return nil }
-        
+        destination.isPaging = true
+
         let monthCalculator = MonthCalculation(m: source.viewModel.current, d: 1, y: source.viewModel.year)
         monthCalculator.previousMonth()
         
@@ -55,7 +56,6 @@ extension MainPagingViewController: UIPageViewControllerDataSource {
         
         // ensure the view loads before installing
         let _ = destination.view
-        
         destination.installedViewModel = viewModel
         return destination
     }
@@ -68,7 +68,8 @@ extension MainPagingViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let source = viewController as? MainCalendarViewController else { return nil }
         guard let destination = storyboard?.instantiateViewController(withIdentifier: "MonthView") as? MainCalendarViewController else { return nil }
-        
+        destination.isPaging = true
+
         let monthCalculator = MonthCalculation(m: source.viewModel.current, d: 1, y: source.viewModel.year)
         monthCalculator.nextMonth()
         
@@ -76,7 +77,6 @@ extension MainPagingViewController: UIPageViewControllerDataSource {
         
         // ensure the view loads before installing
         let _ = destination.view
-        
         destination.installedViewModel = viewModel
         return destination
     }

@@ -32,14 +32,12 @@ class MonthViewModel: MonthViewing {
     private var service: HolidayWebService?
     private var monthCalculator: MonthCalculating
     private var cancelling: Bool = false
-    private var isPaging: Bool = false
     private var useRetry: Bool = false
 
-    init(with calc: MonthCalculating? = nil, service: HolidayWebService? = nil, cancelling: Bool = false, isPaging: Bool = false) {
+    init(with calc: MonthCalculating? = nil, service: HolidayWebService? = nil, cancelling: Bool = false) {
         self.monthCalculator = calc ?? MonthCalculation()
         self.service = service ?? HolidayServiceHandler.shared
         self.cancelling = cancelling
-        self.isPaging = isPaging
     }
     
     var numberOfDaysInMonth: Int {
@@ -65,9 +63,7 @@ class MonthViewModel: MonthViewing {
     var year: Int { monthCalculator.mdyValues.2 }
     
     func startMonth() {
-        newMonthCleanup()
-        onNewMonth()
-        serviceCalls()
+        navigation()
     }
     
     func next() {
@@ -81,11 +77,9 @@ class MonthViewModel: MonthViewing {
     }
     
     private func navigation() {
-        if isPaging == false {
-            newMonthCleanup()
-            onNewMonth()
-            serviceCalls()
-        }
+        newMonthCleanup()
+        onNewMonth()
+        serviceCalls()
     }
     
     private var cancellableServiceCalls: [HolidayWebService] = []
