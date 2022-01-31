@@ -9,6 +9,8 @@ import UIKit
 
 class MonthViewController: UIViewController {
 
+    // TODO: this is a little awkward implicitly unwrapped and being set by
+    // installedViewModel which is optional
     var viewModel: MonthViewing! = MonthViewModel()
     
     var pagingEnabled = false

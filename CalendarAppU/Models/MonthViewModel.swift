@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol MonthNavigating {
     func next()
     func previous()
@@ -34,7 +33,8 @@ class MonthViewModel: MonthViewing {
     private var monthCalculator: MonthCalculating
     private var cancelling: Bool = false
     private var isPaging: Bool = false
-    
+    private var useRetry: Bool = false
+
     init(with calc: MonthCalculating? = nil, service: HolidayWebService? = nil, cancelling: Bool = false, isPaging: Bool = false) {
         self.monthCalculator = calc ?? MonthCalculation()
         self.service = service ?? HolidayServiceHandler.shared
@@ -73,7 +73,6 @@ class MonthViewModel: MonthViewing {
     func next() {
         monthCalculator.nextMonth()
         navigation()
-        
     }
     
     func previous() {
@@ -82,7 +81,7 @@ class MonthViewModel: MonthViewing {
     }
     
     private func navigation() {
-        if !isPaging {
+        if isPaging == false {
             newMonthCleanup()
             onNewMonth()
             serviceCalls()
@@ -98,12 +97,9 @@ class MonthViewModel: MonthViewing {
 private extension MonthViewModel {
     
     func serviceCalls() {
-        print(#function)
-        if cancelling {
-            serviceCallsCancelling()
-        } else {
-            serviceCallsNonCancelling()
-        }
+        cancelling ?
+        serviceCallsCancelling() :
+        serviceCallsNonCancelling()
     }
     
     func serviceCallsNonCancelling() {
@@ -132,7 +128,8 @@ private extension MonthViewModel {
         print(#function)
         
         (1...numberOfDaysInMonth).forEach {
-            let service = HolidayService()
+
+            let service: HolidayWebService = useRetry ? HolidayRetryService() : HolidayService()
             
             service.fetchHolidays(year: year, month: current, day: $0) { [weak self] in
                 guard let self = self else { return }
