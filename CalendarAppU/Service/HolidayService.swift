@@ -8,7 +8,7 @@
 import Foundation
 
 /**
- A HolidayWebService Class that submits a url request and srtores the task in dataTask to cancel later if needed
+ A cancelling HolidayWebService Class that submits a url request and srtores the task in dataTask to cancel later if needed
  
  */
 class HolidayService: HolidayWebService {
@@ -22,20 +22,9 @@ class HolidayService: HolidayWebService {
     }
     
     func fetchHolidays(year: Int, month: Int, day: Int, completion: @escaping (Result<Holidays, FetchError>) -> ()) {
-        
-        guard var components = URLComponents(string: "https://holidays.abstractapi.com/v1/") else { return }
-        
-        components.queryItems = [
-            URLQueryItem(name: "api_key", value: "f27cda4192bc4425b8da32db7d3f925d"),
-            URLQueryItem(name: "country", value: "US"),
-            URLQueryItem(name: "year", value: "\(year)"),
-            URLQueryItem(name: "month", value: "\(month)"),
-            URLQueryItem(name: "day", value: "\(day)"),
-            ]
-        
-        //print(components.url as Any)
-        
-        guard let url = components.url else { return completion(.failure(.malformedURL)) }
+        guard let url = holidayServiceURL(year: year, month: month, day: day) else { return completion(.failure(.malformedURL)) }
+
+        // Early exit for testing
         
         //if day < 4 || day > 22 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
         if day < 1 { /* proceed */ } else { return completion(.failure(.notImplemented)) }
