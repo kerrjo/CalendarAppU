@@ -3,9 +3,7 @@ Calendar app UIkit, InspiringApps coding challenge
 
 Built with *Xcode Version 13.2.1 (13C100)*
 
-
 ![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-29%20at%203.04.48%20AM.png)
-
 
 ## The service api
 The api chosen was holidays.abstractapi.com/v1/
@@ -24,9 +22,8 @@ I have limited the days to specific days in `HolidayServiceHandler`
 I would prefer if you run the app, using the supplied api_key, that the days be limited like `day < 2` ( for only the first day)
 or no days `day < 1` if flipping through many years.
 
-On the `master` branch day is set in `HolidayServiceHandler` non cancelling
-
-On the `paging` branch day is set in `HolidayService` cancelling
+- On the `master` branch day is set in `HolidayServiceHandler` non cancelling
+- On the `paging` branch day is set in `HolidayService` cancelling
 
 ## The service calls
 There are two kinds of web service Objects `HolidayWebService` and `HolidayServiceHandler`
@@ -45,7 +42,6 @@ private extension MonthViewModel {
         serviceCallsNonCancelling()
         // serviceCallsCancelling()
 ```
-
 ### NonCancelling service calls
 The second kind: `HolidayServiceHandler` and cannot cancel requests and only one instance is used so it is not stored. 
 ```
@@ -68,7 +64,6 @@ public class HolidayService: HolidayWebService {
     func fetchHolidays(year: Int, month: Int, day: Int, completion: @escaping (Result<Holidays, FetchError>) -> ()) {    
        dataTask = URLSession.shared.dataTask(with: url) { data, response, error in            
 ```
-
 ## Testing
 This implementation considered this limited bandwidth. For testing purposes code typically looks like this 
 ```
@@ -76,7 +71,6 @@ This implementation considered this limited bandwidth. For testing purposes code
             return completion(.failure(.notImplemented)) }
 ```
 test the calendar wo api updates it simply returns an error. It would build the URL but not send it.
-
 
 Limited testing would only check for day one for each month.
 ```
