@@ -121,9 +121,5 @@ class HolidayRetryService: HolidayWebService {
         
         fetcher = HolidayFetcher()
         fetcher?.fetch(url: url, completion: completion)
-        
-//        DispatchQueue.global().async { [weak self] in
-//            self?.fetcher?.fetch(url: url, completion: completion)
-//        }
     }
 }
