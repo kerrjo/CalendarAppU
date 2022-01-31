@@ -12,7 +12,10 @@ Free version only allows 1,000 requests 1 request / second
 The Free version requires Y M and D.   Y and M would have been cool, but oh well.
 
 ## Usage
-Because of the limited bandwidth, i considered cancelling service calls. Typically I like to use a shared instance to handle service requests. I implemented both and tested with both. Finally ended up with using the noncancelling version.
+
+Before ripping through many months, tap happy, be aware there are limited requests available with the api key submitted.
+
+And Because of the limited bandwidth, i considered cancelling service calls. Typically I like to use a shared instance to handle service requests. I implemented both and tested with both. Finally ended up with using the noncancelling version.
 
 I have limited the days to specific days in `HolidayServiceHandler`
 ```
