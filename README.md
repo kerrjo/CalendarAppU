@@ -63,10 +63,24 @@ The `HolidayService` is setup so that requests can be cancelled. In the hopes th
 ```
 public class HolidayService: HolidayWebService {
     private(set) var dataTask: URLSessionDataTask?
-    
     func fetchHolidays(year: Int, month: Int, day: Int, completion: @escaping (Result<Holidays, FetchError>) -> ()) {    
        dataTask = URLSession.shared.dataTask(with: url) { data, response, error in            
 ```
+## Issues and Concerns
+
+I spent an initial 6 hours, then maybe an additional 4 the next day ( after I reread the instructions ) and discovered there was no detail on selection, from the requirement.
+
+Let’s start with the DayView. It needs a viewModel, perhaps a xib wouldn’t hurt either
+DayViewModels could maybe be created and managed by the MonthViewModel. 
+An MVVM _react method_, a closure, an _Observable Box_ or  _@Published_ from Combine could be used. Upon updates that a holiday exists for that day.
+
+Interaction with the webService could use improvement.  The arrays of holidays simply appended to and flung up to the view is a little concerning, as the only control mechanism is clearing the array on newMonth; what happens if a service request from the old month responds after the clear for the new month - there is no check at the moment for which month, only day is used. 
+The MVVM _react method_ is simple closure, perhaps an _Observable Box_ or  _@Published_ from Combine could used.
+
+The UI for the month is ok, a StackView of StackViews.  But could be better managed, perhaps - there’s a lot of searching and managing ( findDay, findPopupView and clearViews). A grid view of some sort is needed.
+
+A Singleton for the webService could still be a Singleton that capable of cancelling if it managed its requests, perhaps an array of dataTasks that can be cancelled.
+
 ## Testing
 This implementation considered this limited bandwidth. For testing purposes code typically looks like this 
 ```
@@ -89,10 +103,8 @@ https://holidays.abstractapi_FOO.com/v1/
 ```
 another was altering the key with underscores maybe
 ```
-        components.queryItems = [
-            URLQueryItem(name: "api_key", value: "___f27cdac22cabd3f925d"),
+        components.queryItems = [ URLQueryItem(name: "api_key", value: "___f27cdac22cabd3f925d"),
 ```
-
 good testcoverage
 
 ![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-27%20at%208.11.00%20PM.png)
@@ -111,17 +123,8 @@ or no days `day < 1` if flipping through many years.
 
 The Cancelling service is good because on each new month, a new viewModel is created, and the the requests just go away, as do the arrays holding the holidays and services.
 
-
 https://user-images.githubusercontent.com/12850537/151677177-bcde71d3-f5a7-4c75-851c-e69a47769892.mp4
 
 well beyond 3 yrs
 
 https://user-images.githubusercontent.com/12850537/151677459-fa63f659-ce76-48fa-87c1-a0ef5403a265.mp4
-
-pretty cool
-
-https://user-images.githubusercontent.com/12850537/151677849-4ef3be2b-e231-4162-b481-69265de6f582.mp4
-
-
-
-
