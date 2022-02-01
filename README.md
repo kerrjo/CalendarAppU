@@ -70,9 +70,8 @@ public class HolidayService: HolidayWebService {
 
 I spent an initial 6 hours, then maybe an additional 4 the next day ( after I reread the instructions ) and discovered there was no detail on selection, from the requirement.
 
-Let’s start with the DayView. It needs a viewModel, perhaps a xib wouldn’t hurt either
-DayViewModels could maybe be created and managed by the MonthViewModel. 
-An MVVM _react method_, a closure, an _Observable Box_ or  _@Published_ from Combine could be used. Upon updates that a holiday exists for that day.
+Let’s start with the DayView. It needs a viewModel, perhaps a xib wouldn’t hurt either.
+DayViewModels could maybe be created and managed by the MonthViewModel. An MVVM _react method_, a closure, an _Observable Box_ or  _@Published_ from Combine could be used. Upon updates that a holiday exists for that day.  An indicator, such as a dot, could be used instead of name of holiday. Dots up to two for multiple holidays, then elipsis for more than two.
 
 Interaction with the webService could use improvement.  The arrays of holidays simply appended to and flung up to the view is a little concerning, as the only control mechanism is clearing the array on newMonth; what happens if a service request from the old month responds after the clear for the new month - there is no check at the moment for which month, only day is used. 
 The MVVM _react method_ is simple closure, perhaps an _Observable Box_ or  _@Published_ from Combine could used.
