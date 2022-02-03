@@ -18,15 +18,12 @@ import UIKit
  */
 class MonthViewController: UIViewController {
 
-    // TODO: this is a little awkward viewModel implicitly unwrapped and being set by
-    // installedViewModel which is optional
-    
     var viewModel: MonthViewing! = MonthViewModel()
     
     var pagingEnabled = false
     var installedViewModel: MonthViewing? {
         didSet {
-            viewModel = installedViewModel
+            viewModel = installedViewModel ?? MonthViewModel()
             addListeners()
         }
     }

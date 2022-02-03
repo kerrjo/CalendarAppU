@@ -8,7 +8,20 @@
 import UIKit
 
 class MainCalendarViewController: UIViewController {
+    // nonpaging
+    
+    var viewModel: MonthViewing { monthView.viewModel }
 
+    // paging
+
+    var installedViewModel: MonthViewing? {
+        didSet {
+            monthView.installedViewModel = installedViewModel ?? MonthViewModel()
+            monthView.viewModel.startMonth()
+            updateTitleMonth()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if isPaging {
@@ -18,22 +31,15 @@ class MainCalendarViewController: UIViewController {
             updateTitleMonth()
         }
     }
-    var isPaging = false
     
-    // nonpaging
-    
-    var viewModel: MonthViewing { monthView.viewModel }
-
-    // paging
-
-    var installedViewModel: MonthViewing? {
-        didSet {
-            monthView.installedViewModel = installedViewModel
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if isPaging == false {
             monthView.viewModel.startMonth()
-            updateTitleMonth()
         }
     }
-
+    
+    var isPaging = false
 
     @IBOutlet var buttonPrevious: UIButton!
     @IBOutlet var monthLabel: UILabel!
@@ -54,14 +60,7 @@ class MainCalendarViewController: UIViewController {
     }
     
     func updateTitleMonth() { monthLabel.text = monthView.viewModel.yearMonthTitle }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if isPaging == false {
-            monthView.viewModel.startMonth()
-        }
-    }
-    
+ 
     private weak var monthView: MonthViewController!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
