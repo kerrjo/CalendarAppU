@@ -14,12 +14,11 @@ import UIKit
  
  A  paging impl will create a new instance of one of these
  `viewModel` is set using  installedViewModel
-
+ 
  */
 class MonthViewController: UIViewController {
-
-    var viewModel: MonthViewing! = MonthViewModel()
     
+    var viewModel: MonthViewing! = MonthViewModel()
     var pagingEnabled = false
     var installedViewModel: MonthViewing? {
         didSet {
@@ -36,7 +35,7 @@ class MonthViewController: UIViewController {
     }
     
     @IBOutlet var monthStackView: UIStackView!
-
+    
     private func addListeners() {
         viewModel.onNewMonth = { [weak self] in
             self?.newMonth()
@@ -62,7 +61,7 @@ extension MonthViewController  {
         clearDayViews()
         addDayViews()
     }
-
+    
     private func clearDayViews() {
         for week in monthStackView.arrangedSubviews {
             guard let week = week as? UIStackView else { continue }
@@ -73,7 +72,7 @@ extension MonthViewController  {
             }
         }
     }
-
+    
     private func holidaysUpdated(_ holidays: [HolidayElement]) {
         for holiday in holidays {
             DispatchQueue.main.async { [weak self] in
@@ -116,7 +115,7 @@ extension MonthViewController {
         popView.holidayText = text
         monthStackView.insertArrangedSubview(popView, at: weekIndex + 1)
     }
-
+    
     private func findDayViewWeek(day: Int) -> Int? {
         for (index, week) in monthStackView.arrangedSubviews.enumerated() {
             guard let week = week as? UIStackView else { continue }
@@ -168,10 +167,10 @@ private extension MonthViewController {
         let week4 = monthStackView.arrangedSubviews[3] as! UIStackView
         let week5 = monthStackView.arrangedSubviews[4] as! UIStackView
         let week6 = monthStackView.arrangedSubviews[5] as! UIStackView
-
+        
         var day = 0
         let maxDays = viewModel.numberOfDaysInMonth
-
+        
         (1...7).forEach {
             
             day = $0 == viewModel.startDay ? (day + 1) : (day + 0)
@@ -196,7 +195,7 @@ private extension MonthViewController {
             week4.addArrangedSubview(newDayView(for: day))
             day = day + 1
         }
-
+        
         (1...7).forEach { _ in
             // use day counter until maxdays then use 0
             let dayValue = day > maxDays ? 0 : day
@@ -204,7 +203,7 @@ private extension MonthViewController {
             week5.addArrangedSubview(newDayView(for: dayValue))
             day = day + 1
         }
-
+        
         (1...7).forEach { _ in
             // use day counter until maxdays then use 0
             let dayValue = day > maxDays ? 0 : day
