@@ -8,33 +8,78 @@
 import UIKit
 
 class MainCalendarViewController: UIViewController {
+    // nonpaging
+    
+    var viewModel: MonthViewing { monthView.viewModel }
 
+    // paging
+
+    var installedViewModel: MonthViewing? {
+        didSet {
+            monthView.installedViewModel = installedViewModel ?? MonthViewModel()
+            monthView.viewModel.startMonth()
+            updateTitleMonth()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        monthLabel.text = monthView.viewModel.yearMonthTitle
+        if isPaging {
+            view.backgroundColor = .white.withAlphaComponent(0.92)
+            hideNavigationButtons()
+        } else {
+            updateTitleMonth()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        monthView.viewModel.startMonth()
+        if isPaging == false {
+            monthView.viewModel.startMonth()
+        }
     }
+    
+    var isPaging = false
 
+    @IBOutlet var buttonPrevious: UIButton!
     @IBOutlet var monthLabel: UILabel!
+    @IBOutlet var buttonNext: UIButton!
 
-    @IBAction func previousAction(_ sender: Any) {
-        print(#function)
-        monthView.viewModel.previous()
-        monthLabel.text = monthView.viewModel.yearMonthTitle
+    @IBOutlet var bottomSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet var topSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet var topConstraint: NSLayoutConstraint!
+
+    private func hideNavigationButtons() {
+        buttonNext.isHidden = true
+        buttonPrevious.isHidden = true
+        topConstraint.constant = -50
+        bottomConstraint.constant = -50
+        topSpacingConstraint.constant = 20
+        bottomSpacingConstraint.constant = 60
     }
     
-    @IBAction func nextAction(_ sender: Any) {
-        print(#function)
-        monthView.viewModel.next()
-        monthLabel.text = monthView.viewModel.yearMonthTitle
-    }
-    
+    func updateTitleMonth() { monthLabel.text = monthView.viewModel.yearMonthTitle }
+ 
     private weak var monthView: MonthViewController!
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         monthView = segue.destination as? MonthViewController
+        monthView?.pagingEnabled = isPaging
+    }
+}
+
+/// Action buttons not  needed for paging, but for button navigation
+///
+extension MainCalendarViewController {
+
+    @IBAction func previousAction(_ sender: Any) {
+        monthView.viewModel.previous()
+        updateTitleMonth()
+    }
+
+    @IBAction func nextAction(_ sender: Any) {
+        monthView.viewModel.next()
+        updateTitleMonth()
     }
 }
