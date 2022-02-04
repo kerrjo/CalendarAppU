@@ -109,16 +109,18 @@ good testcoverage
 ![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-27%20at%208.11.00%20PM.png)
 
 # Paging
+The app implements two types of navigation, 
+- all in one using Previous and Next butons
+- Paging, using `UIPageViewController`
 
-On this branch, I have limited the days `day < 1` in `HolidayService` which will not submit any days.
+Simply move the StoryBoard Entry Point in CalendarMain storyboard to choose which one to use.
 
-I would prefer if you run the app, using the supplied api_key, that the days be limited like `day < 2` ( for only the first day)
-or no days `day < 1` if flipping through many years.
+<img width="450" alt="EntryPoint_small" src="https://user-images.githubusercontent.com/12850537/152585175-718e0ce5-8884-48c7-b641-51fc117e206a.png">
 
 The Cancelling service is good because on each new month, a new viewModel is created, and the the requests just go away, as do the arrays holding the holidays and services.
 
 https://user-images.githubusercontent.com/12850537/151677177-bcde71d3-f5a7-4c75-851c-e69a47769892.mp4
 
-well beyond 3 yrs
+Many years
 
 https://user-images.githubusercontent.com/12850537/151677459-fa63f659-ce76-48fa-87c1-a0ef5403a265.mp4
