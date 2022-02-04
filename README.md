@@ -110,11 +110,6 @@ good testcoverage
 
 # Paging
 
-Checkout the paging branch for navigation https://github.com/kerrjo/CalendarAppU/tree/Paging
-
-pull request 
-https://github.com/kerrjo/CalendarAppU/pull/2
-
 On this branch, I have limited the days `day < 1` in `HolidayService` which will not submit any days.
 
 I would prefer if you run the app, using the supplied api_key, that the days be limited like `day < 2` ( for only the first day)
