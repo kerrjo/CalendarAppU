@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		550BF56627A3267D00249506 /* MonthCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550BF56527A3267C00249506 /* MonthCalculatorTests.swift */; };
 		5568F60527A5AA4200F68448 /* MainPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568F60427A5AA4200F68448 /* MainPagingViewController.swift */; };
+		558F295D27A7980F004FA152 /* HolidayRetryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F295C27A7980F004FA152 /* HolidayRetryService.swift */; };
+		558F295F27A7A939004FA152 /* HolidayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F295E27A7A939004FA152 /* HolidayService.swift */; };
+		558F296127A7A956004FA152 /* HolidayServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F296027A7A956004FA152 /* HolidayServiceHandler.swift */; };
 		5595EC3A27A20D1C0007D8B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5595EC3927A20D1C0007D8B6 /* AppDelegate.swift */; };
 		5595EC3C27A20D1C0007D8B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5595EC3B27A20D1C0007D8B6 /* SceneDelegate.swift */; };
 		5595EC3E27A20D1C0007D8B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5595EC3D27A20D1C0007D8B6 /* ViewController.swift */; };
@@ -49,6 +52,9 @@
 /* Begin PBXFileReference section */
 		550BF56527A3267C00249506 /* MonthCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalculatorTests.swift; sourceTree = "<group>"; };
 		5568F60427A5AA4200F68448 /* MainPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPagingViewController.swift; sourceTree = "<group>"; };
+		558F295C27A7980F004FA152 /* HolidayRetryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayRetryService.swift; sourceTree = "<group>"; };
+		558F295E27A7A939004FA152 /* HolidayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayService.swift; sourceTree = "<group>"; };
+		558F296027A7A956004FA152 /* HolidayServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayServiceHandler.swift; sourceTree = "<group>"; };
 		5595EC3627A20D1C0007D8B6 /* CalendarAppU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarAppU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5595EC3927A20D1C0007D8B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5595EC3B27A20D1C0007D8B6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +142,9 @@
 			isa = PBXGroup;
 			children = (
 				5595EC7727A256220007D8B6 /* HolidayWebService.swift */,
+				558F295E27A7A939004FA152 /* HolidayService.swift */,
+				558F296027A7A956004FA152 /* HolidayServiceHandler.swift */,
+				558F295C27A7980F004FA152 /* HolidayRetryService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -329,6 +338,9 @@
 				5595EC6E27A21AE00007D8B6 /* MainCalendarViewController.swift in Sources */,
 				5595EC7427A2416E0007D8B6 /* MonthViewModel.swift in Sources */,
 				5568F60527A5AA4200F68448 /* MainPagingViewController.swift in Sources */,
+				558F296127A7A956004FA152 /* HolidayServiceHandler.swift in Sources */,
+				558F295F27A7A939004FA152 /* HolidayService.swift in Sources */,
+				558F295D27A7980F004FA152 /* HolidayRetryService.swift in Sources */,
 				5595EC7B27A2EACC0007D8B6 /* DayView.swift in Sources */,
 				5595EC6C27A214490007D8B6 /* MonthViewController.swift in Sources */,
 				5595EC7D27A2EB2F0007D8B6 /* Holiday.swift in Sources */,

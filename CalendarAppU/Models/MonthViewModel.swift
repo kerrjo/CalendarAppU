@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol MonthNavigating {
     func next()
     func previous()
@@ -33,13 +32,12 @@ class MonthViewModel: MonthViewing {
     private var service: HolidayWebService?
     private var monthCalculator: MonthCalculating
     private var cancelling: Bool = false
-    private var isPaging: Bool = false
-    
-    init(with calc: MonthCalculating? = nil, service: HolidayWebService? = nil, cancelling: Bool = false, isPaging: Bool = false) {
+    private var useRetry: Bool = false
+
+    init(with calc: MonthCalculating? = nil, service: HolidayWebService? = nil, cancelling: Bool = false) {
         self.monthCalculator = calc ?? MonthCalculation()
         self.service = service ?? HolidayServiceHandler.shared
         self.cancelling = cancelling
-        self.isPaging = isPaging
     }
     
     var numberOfDaysInMonth: Int {
@@ -65,15 +63,12 @@ class MonthViewModel: MonthViewing {
     var year: Int { monthCalculator.mdyValues.2 }
     
     func startMonth() {
-        newMonthCleanup()
-        onNewMonth()
-        serviceCalls()
+        navigation()
     }
     
     func next() {
         monthCalculator.nextMonth()
         navigation()
-        
     }
     
     func previous() {
@@ -82,11 +77,9 @@ class MonthViewModel: MonthViewing {
     }
     
     private func navigation() {
-        if !isPaging {
-            newMonthCleanup()
-            onNewMonth()
-            serviceCalls()
-        }
+        newMonthCleanup()
+        onNewMonth()
+        serviceCalls()
     }
     
     private var cancellableServiceCalls: [HolidayWebService] = []
@@ -98,12 +91,9 @@ class MonthViewModel: MonthViewing {
 private extension MonthViewModel {
     
     func serviceCalls() {
-        print(#function)
-        if cancelling {
-            serviceCallsCancelling()
-        } else {
-            serviceCallsNonCancelling()
-        }
+        cancelling ?
+        serviceCallsCancelling() :
+        serviceCallsNonCancelling()
     }
     
     func serviceCallsNonCancelling() {
@@ -132,7 +122,8 @@ private extension MonthViewModel {
         print(#function)
         
         (1...numberOfDaysInMonth).forEach {
-            let service = HolidayService()
+
+            let service: HolidayWebService = useRetry ? HolidayRetryService() : HolidayService()
             
             service.fetchHolidays(year: year, month: current, day: $0) { [weak self] in
                 guard let self = self else { return }
