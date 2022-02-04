@@ -3,7 +3,7 @@ Calendar app UIkit, InspiringApps coding challenge
 
 Built with *Xcode Version 13.2.1 (13C100)*
 
-![alt text](https://github.com/kerrjo/CalendarAppU/blob/master/Screen%20Shot%202022-01-29%20at%203.04.48%20AM.png)
+<img width="400" alt="DaySelect" src="https://user-images.githubusercontent.com/12850537/152584011-0bab2e83-957e-4991-b84a-497ce2e5f444.png">
 
 ## The service api
 The api chosen was holidays.abstractapi.com/v1/
